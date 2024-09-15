@@ -1,0 +1,10 @@
+<div>
+  <h1>Welcome to Dungeon Game</h1>
+  <div *ngIf="!userName">
+    <button (click)="login()">Login with Google</button>
+  </div>
+  <div *ngIf="userName">
+    <p>Hello, {{ userName }}!</p>
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>
