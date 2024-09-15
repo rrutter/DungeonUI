@@ -1,0 +1,9 @@
+<div>
+  <h1>Main Menu</h1>
+  <p>Welcome to the character creation screen!</p>
+
+  <div *ngIf="userName">
+    <p>Hello, {{ userName }}!</p>
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>

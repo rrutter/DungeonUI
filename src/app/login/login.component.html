@@ -3,8 +3,9 @@
   <div *ngIf="!userName">
     <button (click)="login()">Login with Google</button>
   </div>
-  <div *ngIf="userName">
-    <p>Hello, {{ userName }}!</p>
-    <button (click)="logout()">Logout</button>
+
+  <div *ngIf="userData">
+    <h2>OAuth2 User Data:</h2>
+    <pre>{{ userData | json }}</pre>  <!-- Print the entire user data object -->
   </div>
 </div>
