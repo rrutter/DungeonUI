@@ -7,12 +7,15 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { LoginComponent } from './login/login.component';
 import { MainMenuComponent } from "./main-menu/main-menu.component";
+import { CharacterCreationComponent } from "./character-creation/character-creation.component";
+import {FormsModule} from "@angular/forms";
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'menu', component: MainMenuComponent },
+  { path: 'create-character', component: CharacterCreationComponent },
 
   { path: '**', redirectTo: 'login' },
 ];
@@ -21,12 +24,14 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    CharacterCreationComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    FormsModule
   ],
   providers: [
     OAuthService,

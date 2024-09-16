@@ -1,0 +1,57 @@
+<div class="character-creation-container">
+  <h2>Create Your Character</h2>
+
+  <!-- Character Name -->
+  <div>
+    <label for="characterName">Character Name:</label>
+    <input id="characterName" [(ngModel)]="characterName" placeholder="Enter character name" />
+  </div>
+
+  <!-- Race Selection -->
+  <div>
+    <label for="race">Race:</label>
+    <select id="race" [(ngModel)]="selectedRace" (change)="onRaceChange($event)">
+      <option *ngFor="let race of races" [value]="race.name">{{race.name}}</option>
+    </select>
+  </div>
+
+  <!-- Gender Selection -->
+  <div>
+    <label>Gender:</label>
+    <input type="radio" id="male" value="Male" [(ngModel)]="selectedGender" name="gender">
+    <label for="male">Male</label>
+    <input type="radio" id="female" value="Female" [(ngModel)]="selectedGender" name="gender">
+    <label for="female">Female</label>
+  </div>
+
+  <!-- Alignment Selection -->
+  <div>
+    <label>Alignment:</label>
+    <input type="radio" id="good" value="Good" [(ngModel)]="selectedAlignment" name="alignment">
+    <label for="good">Good</label>
+    <input type="radio" id="neutral" value="Neutral" [(ngModel)]="selectedAlignment" name="alignment">
+    <label for="neutral">Neutral</label>
+    <input type="radio" id="evil" value="Evil" [(ngModel)]="selectedAlignment" name="alignment">
+    <label for="evil">Evil</label>
+  </div>
+
+  <!-- Stat Distribution -->
+  <div>
+    <h3>Distribute Your Stats</h3>
+    <div *ngFor="let stat of stats">
+      <label>{{ stat.name }}: {{ stat.value }}</label>
+      <button (click)="increaseStat(stat)">+</button>
+      <button (click)="decreaseStat(stat)">-</button>
+    </div>
+    <p>Points Left: {{ remainingPoints }}</p>
+  </div>
+
+  <!-- Default Guild -->
+  <div>
+    <label>Guild: {{ defaultGuild }}</label>
+  </div>
+
+  <!-- Submit Button -->
+  <button (click)="createCharacter()">Create Character</button>
+  <button (click)="cancel()">Cancel</button>
+</div>

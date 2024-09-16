@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';  // Import tap to handle side effects
 
 @Injectable({
@@ -34,8 +34,29 @@ export class UserService {
     );
   }
 
+  // Clear the stored user data
   clearUserData(): void {
     this.userData = null;
     localStorage.removeItem(this.storageKey);
+  }
+
+  // Stub method to create a character
+  createCharacter(characterData: any): Observable<any> {
+    const url = `${this.apiUrl}/create-character`;  // Stub API endpoint
+
+    // Returning a mock response for now until the backend is ready
+    // Replace this with actual HTTP POST call when backend is available
+    return of({ success: true, characterId: 1, characterData }).pipe(
+      tap(response => {
+        console.log('Character created:', response);
+      })
+    );
+
+    // Uncomment the actual backend call once it's implemented:
+    // return this.http.post(url, characterData).pipe(
+    //   tap((response) => {
+    //     console.log('Character created successfully:', response);
+    //   })
+    // );
   }
 }

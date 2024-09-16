@@ -1,9 +1,12 @@
 <div>
   <h1>Main Menu</h1>
-  <p>Welcome to the character creation screen!</p>
 
-  <div *ngIf="userName">
-    <p>Hello, {{ userName }}!</p>
-    <button (click)="logout()">Logout</button>
-  </div>
+  <p>Welcome, {{ userName }}!</p>
+
+  <!-- Create Character Button -->
+  <button (click)="navigateToCreateCharacter()">Create Character</button>
+  <br>
+
+  <!-- Logout Button -->
+  <button (click)="logout()">Logout</button>
 </div>

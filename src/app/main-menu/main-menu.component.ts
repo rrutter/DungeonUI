@@ -28,6 +28,12 @@ export class MainMenuComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  // Navigate to Character Creation
+  navigateToCreateCharacter(): void {
+    this.router.navigate(['/create-character']);  // Navigate to the character creation route
+  }
+
+
   // Getter to retrieve the user's name
   get userName(): string | null {
     return this.userData ? this.userData['name'] : null;  // Use userData to get the name
