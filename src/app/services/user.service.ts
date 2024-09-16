@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';  // Import tap to handle side effects
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private userData: any = null;
-  private apiUrl = 'http://localhost:8080/api/users';  // Your backend endpoint
+  private apiUrl = 'http://localhost:8080/api';  // Your backend endpoint
   private storageKey = 'userData';  // Key to store user data in localStorage
 
   constructor(private http: HttpClient) {
@@ -25,7 +26,7 @@ export class UserService {
 
   // Send user data to backend to create an account
   createAccount(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/create`, userData).pipe(
+    return this.http.post(`${this.apiUrl}/users/create`, userData).pipe(
       tap((response) => {
         // Store the actual data returned from the backend and persist it in localStorage
         this.userData = response;
@@ -46,7 +47,7 @@ export class UserService {
 
     // Returning a mock response for now until the backend is ready
     // Replace this with actual HTTP POST call when backend is available
-    return of({ success: true, characterId: 1, characterData }).pipe(
+    return of({success: true, characterId: 1, characterData}).pipe(
       tap(response => {
         console.log('Character created:', response);
       })
@@ -59,4 +60,18 @@ export class UserService {
     //   })
     // );
   }
+
+  /* Refactor this to character creation service */
+
+  getCharacterData(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/character-data/races`);
+  };
+
+  getGenders(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/character-data/genders`);
+  };
+
+  getAlignments(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/character-data/alignments`);
+  };
 }

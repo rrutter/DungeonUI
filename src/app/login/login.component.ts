@@ -18,12 +18,6 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router)
     {
-      // Debugging router navigation events
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe(event => {
-        console.log('NavigationEnd:', event);
-      });
   }
 
   ngOnInit() {
@@ -31,23 +25,23 @@ export class LoginComponent implements OnInit {
     this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
       if (this.oauthService.hasValidIdToken() || this.oauthService.hasValidAccessToken()) {
         this.userData = this.oauthService.getIdentityClaims();
-        console.log('User Data:', this.userData);
+        //console.log('User Data:', this.userData);
 
         this.userService.createAccount(this.userData).subscribe(
           response => {
-            console.log('Account created successfully:', response);
+           // console.log('Account created successfully:', response);
             // Debugging token validity after creating account
             if (this.oauthService.hasValidIdToken() || this.oauthService.hasValidAccessToken()) {
-              console.log('Token is still valid, navigating to menu');
+              //console.log('Token is still valid, navigating to menu');
             } else {
-              console.log('Token has become invalid after account creation');
+             // console.log('Token has become invalid after account creation');
             }
             this.router.navigate(['/menu']).then(r => {
-              console.log('navigating to menu...', r);
+             // console.log('navigating to menu...', r);
             });
           },
           error => {
-            console.error('Error creating account:', error);
+           // console.error('Error creating account:', error);
           }
         );
       }

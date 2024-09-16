@@ -18,22 +18,21 @@
   <!-- Gender Selection -->
   <div>
     <label>Gender:</label>
-    <input type="radio" id="male" value="Male" [(ngModel)]="selectedGender" name="gender">
-    <label for="male">Male</label>
-    <input type="radio" id="female" value="Female" [(ngModel)]="selectedGender" name="gender">
-    <label for="female">Female</label>
+    <div *ngFor="let gender of genders">
+      <input type="radio" [id]="gender.name" [value]="gender.name" [(ngModel)]="selectedGender" name="gender">
+      <label [for]="gender.name">{{ gender.name }}</label>
+    </div>
   </div>
 
   <!-- Alignment Selection -->
   <div>
     <label>Alignment:</label>
-    <input type="radio" id="good" value="Good" [(ngModel)]="selectedAlignment" name="alignment">
-    <label for="good">Good</label>
-    <input type="radio" id="neutral" value="Neutral" [(ngModel)]="selectedAlignment" name="alignment">
-    <label for="neutral">Neutral</label>
-    <input type="radio" id="evil" value="Evil" [(ngModel)]="selectedAlignment" name="alignment">
-    <label for="evil">Evil</label>
+    <div *ngFor="let alignment of alignments">
+      <input type="radio" [id]="alignment.name" [value]="alignment.name" [(ngModel)]="selectedAlignment" name="alignment">
+      <label [for]="alignment.name">{{ alignment.name }}</label>
+    </div>
   </div>
+
 
   <!-- Stat Distribution -->
   <div>

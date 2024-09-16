@@ -19,7 +19,6 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.userData = this.userService.getUserData();
-    console.log('Main menu loaded', this.userData);
   }
 
   logout() {

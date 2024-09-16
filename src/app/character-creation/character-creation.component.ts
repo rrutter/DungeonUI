@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { Race, Gender, Alignment, BaseStats } from './character-interfaces'
 
 @Component({
   selector: 'app-character-creation',
@@ -9,17 +10,14 @@ import { Router } from '@angular/router';
 })
 export class CharacterCreationComponent implements OnInit {
   characterName: string = '';
-  selectedRace: string = 'Human';
-  selectedGender: string = 'Male';
-  selectedAlignment: string = 'Neutral';
+  selectedRace: string = '';
+  selectedGender: string = '';
+  selectedAlignment: string = '';
   defaultGuild: string = 'Adventurers Guild';
 
-  races = [
-    { name: 'Human', baseStats: { strength: 10, dexterity: 10, constitution: 10, charisma: 10, intelligence: 10, wisdom: 10 }},
-    { name: 'Elf', baseStats: { strength: 8, dexterity: 12, constitution: 8, charisma: 10, intelligence: 12, wisdom: 10 }},
-    { name: 'Dwarf', baseStats: { strength: 12, dexterity: 8, constitution: 12, charisma: 8, intelligence: 10, wisdom: 10 }}
-  ];
-
+  genders: Gender[] = [];
+  alignments: Alignment[] = [];
+  races: Race[] = [];
   stats = [
     { name: 'Strength', value: 10, min: 0, max: 20 },
     { name: 'Dexterity', value: 10, min: 0, max: 20 },
@@ -35,9 +33,31 @@ export class CharacterCreationComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
-    // Set default race to Human initially
-    this.selectedRace = 'Human';
-    this.updateStatsBasedOnRace(this.races[0]);
+    // Fetch races from backend
+    this.userService.getCharacterData().subscribe((data: Race[]) => {
+      this.races = data;
+      console.log('existing races:', this.races);
+
+      // Set default selected race and update stats when races are loaded
+      if (this.races.length > 0) {
+        this.selectedRace = this.races[0].name;
+        this.updateStatsBasedOnRace(this.races[0]);
+      }
+    });
+
+    // Fetch genders from backend
+    this.userService.getGenders().subscribe((data: Gender[]) => {
+      this.genders = data;
+      this.selectedGender = this.genders[0]?.name || 'Male'; // Default selection
+      console.log('existing genders:', this.genders);
+    });
+
+    // Fetch alignments from backend
+    this.userService.getAlignments().subscribe((data: Alignment[]) => {
+      this.alignments = data;
+      this.selectedAlignment = this.alignments[0]?.name || 'Neutral'; // Default selection
+      console.log('existing alignments:', this.alignments);
+    });
   }
 
   // Handle race change and reset stats
@@ -49,9 +69,9 @@ export class CharacterCreationComponent implements OnInit {
   }
 
   // Reset stats based on selected race and recalculate remaining points
-  updateStatsBasedOnRace(race: any) {
+  updateStatsBasedOnRace(race: Race) {
     this.stats.forEach(stat => {
-      stat.value = race.baseStats[stat.name.toLowerCase()];
+      stat.value = race.baseStats[stat.name.toLowerCase() as keyof BaseStats];
     });
     this.calculateRemainingPoints();
   }
