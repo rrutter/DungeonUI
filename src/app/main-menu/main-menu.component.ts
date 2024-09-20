@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 })
 export class MainMenuComponent implements OnInit {
   userData: any = null;
+  characters: any[] = [];
 
   constructor(
     private oauthService: OAuthService,
@@ -19,6 +20,18 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.userData = this.userService.getUserData();
+    if (this.userData && this.userData.id) {
+      // Fetch user's characters
+      this.userService.getUserCharacters(this.userData.id).subscribe(
+        (characters: any[]) => {
+          this.characters = characters;
+          console.log('User characters:', this.characters);
+        },
+        error => {
+          console.error('Error fetching characters:', error);
+        }
+      );
+    }
   }
 
   logout() {
@@ -29,13 +42,17 @@ export class MainMenuComponent implements OnInit {
 
   // Navigate to Character Creation
   navigateToCreateCharacter(): void {
-    this.router.navigate(['/create-character']);  // Navigate to the character creation route
+    this.router.navigate(['/create-character']);
+  }
+
+  selectCharacter(character: any) {
+    this.router.navigate(['/game', character.id]);
   }
 
 
   // Getter to retrieve the user's name
   get userName(): string | null {
-    return this.userData ? this.userData['name'] : null;  // Use userData to get the name
+    return this.userData ? this.userData['name'] : null;
   }
 
 }

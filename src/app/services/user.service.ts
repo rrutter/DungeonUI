@@ -41,9 +41,13 @@ export class UserService {
     localStorage.removeItem(this.storageKey);
   }
 
-  // Stub method to create a character
   createCharacter(characterData: any, userId: number): Observable<any> {
       return this.http.post(`${this.apiUrl}/characters/create?userId=${userId}`, characterData);
+  }
+
+  getUserCharacters(userId: number): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/characters/user/${userId}`);
+
   }
 
   /* Refactor this to character creation service */

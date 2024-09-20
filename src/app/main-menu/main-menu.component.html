@@ -3,6 +3,22 @@
 
   <p>Welcome, {{ userName }}!</p>
 
+  <!-- Display list of characters -->
+  <div *ngIf="characters.length > 0">
+    <h3>Your Characters:</h3>
+    <ul>
+      <li *ngFor="let character of characters">
+        {{ character.name }} (Level {{ character.level }} {{ character.race }})
+        <button (click)="selectCharacter(character)">Play</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- If no characters exist, show a message -->
+  <div *ngIf="characters.length === 0">
+    <p>You don't have any characters yet. Create one to start playing!</p>
+  </div>
+
   <!-- Create Character Button -->
   <button (click)="navigateToCreateCharacter()">Create Character</button>
   <br>
@@ -10,3 +26,4 @@
   <!-- Logout Button -->
   <button (click)="logout()">Logout</button>
 </div>
+
