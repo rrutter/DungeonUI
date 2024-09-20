@@ -104,19 +104,27 @@ export class CharacterCreationComponent implements OnInit {
       return;
     }
 
+    // Map the stats array to specific character properties
     const characterData = {
       name: this.characterName,
       race: this.selectedRace,
       gender: this.selectedGender,
       alignment: this.selectedAlignment,
-      stats: this.stats.map(stat => ({ [stat.name.toLowerCase()]: stat.value })),
+      strength: this.stats.find(stat => stat.name === 'Strength')?.value,
+      dexterity: this.stats.find(stat => stat.name === 'Dexterity')?.value,
+      constitution: this.stats.find(stat => stat.name === 'Constitution')?.value,
+      charisma: this.stats.find(stat => stat.name === 'Charisma')?.value,
+      intelligence: this.stats.find(stat => stat.name === 'Intelligence')?.value,
+      wisdom: this.stats.find(stat => stat.name === 'Wisdom')?.value,
       guild: this.defaultGuild
     };
 
+    const userId = this.userService.getUserData().id;  // Assuming you store user data on login
+
     // Call the backend to save the character
-    this.userService.createCharacter(characterData).subscribe(
+    this.userService.createCharacter(characterData, userId).subscribe(
       response => {
-        console.log('Character created successfully!', response);
+        console.log('Character created successfully!!', response);
         this.router.navigate(['/game']);
       },
       error => {
@@ -124,6 +132,7 @@ export class CharacterCreationComponent implements OnInit {
       }
     );
   }
+
 
   cancel(): void {
     this.router.navigate(['/menu']);  // Navigate back to the main menu

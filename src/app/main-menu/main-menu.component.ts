@@ -37,4 +37,5 @@ export class MainMenuComponent implements OnInit {
   get userName(): string | null {
     return this.userData ? this.userData['name'] : null;  // Use userData to get the name
   }
+
 }

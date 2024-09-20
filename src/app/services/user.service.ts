@@ -42,23 +42,8 @@ export class UserService {
   }
 
   // Stub method to create a character
-  createCharacter(characterData: any): Observable<any> {
-    const url = `${this.apiUrl}/create-character`;  // Stub API endpoint
-
-    // Returning a mock response for now until the backend is ready
-    // Replace this with actual HTTP POST call when backend is available
-    return of({success: true, characterId: 1, characterData}).pipe(
-      tap(response => {
-        console.log('Character created:', response);
-      })
-    );
-
-    // Uncomment the actual backend call once it's implemented:
-    // return this.http.post(url, characterData).pipe(
-    //   tap((response) => {
-    //     console.log('Character created successfully:', response);
-    //   })
-    // );
+  createCharacter(characterData: any, userId: number): Observable<any> {
+      return this.http.post(`${this.apiUrl}/characters/create?userId=${userId}`, characterData);
   }
 
   /* Refactor this to character creation service */
