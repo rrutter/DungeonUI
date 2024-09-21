@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from "../services/user.service";
-import {Router} from "@angular/router";
-import {map} from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-town',
   templateUrl: './town.component.html',
-  styleUrl: './town.component.css'
+  styleUrls: ['./town.component.css']
 })
-
 export class TownComponent implements OnInit {
-  private selectedCharacter:any;
+  selectedCharacter: any;
+  characterGuilds: any[] = [];  // Store the character's guilds
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -22,6 +21,9 @@ export class TownComponent implements OnInit {
       (locationData) => {
         if (locationData.locationId !== 0) {
           this.router.navigate(['/game']);
+        } else {
+          // Fetch the character's guilds when they are in town
+          this.loadCharacterGuilds();
         }
       },
       (error) => {
@@ -30,4 +32,16 @@ export class TownComponent implements OnInit {
       }
     );
   }
+
+  loadCharacterGuilds(): void {
+    this.userService.getCharacterGuilds(this.selectedCharacter.id).subscribe(
+      (guilds) => {
+        this.characterGuilds = guilds;  // Store the guilds for display
+      },
+      (error) => {
+        console.error('Error fetching guilds', error);
+      }
+    );
+  }
 }
+

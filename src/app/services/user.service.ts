@@ -76,4 +76,8 @@ export class UserService {
     console.log('location data:', location);
     return location;
   }
+
+  getCharacterGuilds(characterId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/characters/${characterId}/guilds`);
+  }
 }

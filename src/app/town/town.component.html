@@ -1,1 +1,16 @@
-<p>town works!</p>
+<div>
+  <h1>Welcome to the Town!</h1>
+
+  <h2>Your Guilds:</h2>
+  <div *ngIf="characterGuilds.length > 0; else noGuilds">
+    <div *ngFor="let guild of characterGuilds">
+      <p><strong>Guild:</strong> {{ guild.guild.name }}</p>
+      <p><strong>Level:</strong> {{ guild.level }}</p>
+      <p><strong>Experience:</strong> {{ guild.experience }}</p>
+    </div>
+  </div>
+
+  <ng-template #noGuilds>
+    <p>You are not part of any guild yet.</p>
+  </ng-template>
+</div>
