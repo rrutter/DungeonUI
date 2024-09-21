@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class TownComponent implements OnInit {
   selectedCharacter: any;
   characterGuilds: any[] = [];  // Store the character's guilds
+  characterWorn: any;  // Store the character's worn equipment
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -22,8 +23,9 @@ export class TownComponent implements OnInit {
         if (locationData.locationId !== 0) {
           this.router.navigate(['/game']);
         } else {
-          // Fetch the character's guilds when they are in town
+          // Load the character's guilds and worn equipment
           this.loadCharacterGuilds();
+          this.loadCharacterWorn();
         }
       },
       (error) => {
@@ -33,6 +35,7 @@ export class TownComponent implements OnInit {
     );
   }
 
+  // Load the character's guilds
   loadCharacterGuilds(): void {
     this.userService.getCharacterGuilds(this.selectedCharacter.id).subscribe(
       (guilds) => {
@@ -43,5 +46,16 @@ export class TownComponent implements OnInit {
       }
     );
   }
-}
 
+  // Load the character's worn equipment
+  loadCharacterWorn(): void {
+    this.userService.getAllCharacterWorn(this.selectedCharacter.id).subscribe(
+      (wornData) => {
+        this.characterWorn = wornData;  // Store the character's worn equipment
+      },
+      (error) => {
+        console.error('Error fetching worn equipment', error);
+      }
+    );
+  }
+}

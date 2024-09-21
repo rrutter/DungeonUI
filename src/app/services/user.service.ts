@@ -80,4 +80,9 @@ export class UserService {
   getCharacterGuilds(characterId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/characters/${characterId}/guilds`);
   }
+
+  getAllCharacterWorn(characterId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/characters/${characterId}/worn`);
+  }
+
 }
