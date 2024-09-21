@@ -13,6 +13,7 @@ import { GameComponent} from "./game/game.component";
 import { TownComponent} from "./town/town.component";
 import { DungeonComponent } from "./dungeon/dungeon.component";
 import { DungeonAccessGuard } from "./guards/dungeon-access.guard";
+import {TownGuard} from "./guards/town-access.guard";
 
 
 const routes: Routes = [
@@ -21,12 +22,8 @@ const routes: Routes = [
   { path: 'menu', component: MainMenuComponent },
   { path: 'create-character', component: CharacterCreationComponent },
   { path: 'game', component: GameComponent },
-  { path: 'town', component: TownComponent },
-  {
-    path: 'dungeon',
-    component: DungeonComponent,
-    canActivate: [DungeonAccessGuard]  // Guard to restrict access to the dungeon
-  },
+  { path: 'town', component: TownComponent, canActivate: [TownGuard]  },
+  { path: 'dungeon', component: DungeonComponent, canActivate: [DungeonAccessGuard] },
 
   { path: '**', redirectTo: 'login' },
 ];

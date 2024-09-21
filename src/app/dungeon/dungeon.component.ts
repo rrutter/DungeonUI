@@ -27,7 +27,6 @@ export class DungeonComponent implements OnInit {
   }
 
   verifyBackendLocation(): void {
-    console.log('verifying backend location...');
     this.userService.getCharacterLocation(this.selectedCharacter.id).subscribe(
       (locationId: number) => {
         if (locationId === this.selectedCharacter.locationId) {
