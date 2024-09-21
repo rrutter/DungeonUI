@@ -46,7 +46,8 @@ export class MainMenuComponent implements OnInit {
   }
 
   selectCharacter(character: any) {
-    this.router.navigate(['/game', character.id]);
+    this.userService.setSelectedCharacter(character);
+    this.router.navigate(['/game']);
   }
 
 

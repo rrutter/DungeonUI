@@ -9,8 +9,9 @@ import { tap } from 'rxjs/operators';  // Import tap to handle side effects
 })
 export class UserService {
   private userData: any = null;
-  private apiUrl = 'http://localhost:8080/api';  // Your backend endpoint
-  private storageKey = 'userData';  // Key to store user data in localStorage
+  private apiUrl = 'http://localhost:8080/api';
+  private storageKey = 'userData';
+  private selectedCharacter: any = null;
 
   constructor(private http: HttpClient) {
     // Load stored user data from localStorage when service initializes
@@ -47,10 +48,16 @@ export class UserService {
 
   getUserCharacters(userId: number): Observable<any[]> {
       return this.http.get<any[]>(`${this.apiUrl}/characters/user/${userId}`);
+  }
+  /* Refactor this to character creation service */
 
+  setSelectedCharacter(character: any){
+    this.selectedCharacter = character;
   }
 
-  /* Refactor this to character creation service */
+  getSelectedCharacter(){
+    return this.selectedCharacter;
+  }
 
   getCharacterData(): Observable<any> {
     return this.http.get(`${this.apiUrl}/character-data/races`);
@@ -63,4 +70,10 @@ export class UserService {
   getAlignments(): Observable<any> {
     return this.http.get(`${this.apiUrl}/character-data/alignments`);
   };
+
+  getCharacterLocation(characterId: number): Observable<any> {
+    const location = this.http.get(`${this.apiUrl}/characters/${characterId}/location`);
+    console.log('location data:', location);
+    return location;
+  }
 }
