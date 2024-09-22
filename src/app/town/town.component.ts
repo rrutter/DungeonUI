@@ -35,7 +35,6 @@ export class TownComponent implements OnInit {
     );
   }
 
-  // Load the character's guilds
   loadCharacterGuilds(): void {
     this.userService.getCharacterGuilds(this.selectedCharacter.id).subscribe(
       (guilds) => {
@@ -46,6 +45,8 @@ export class TownComponent implements OnInit {
       }
     );
   }
+
+
 
   // Load the character's worn equipment
   loadCharacterWorn(): void {

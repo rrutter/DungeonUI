@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopService } from '../services/shop.service';
-import {Router} from "@angular/router";
+import { InventoryService } from '../services/inventory.service'; // Import the new Inventory Service
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-shop',
@@ -10,13 +11,17 @@ import {Router} from "@angular/router";
 export class ShopComponent implements OnInit {
 
   shopItems: any[] = [];
-  playerItems: any[] = [];  // You may want to fill this with player's actual inventory
+  playerItems: any[] = [];  // Holds the player's inventory
+  characterId = 1;  // Assuming the character ID is known (or retrieve it dynamically)
 
-  constructor(private shopService: ShopService,
-              private router: Router) { }
+  constructor(
+    private shopService: ShopService,
+    private inventoryService: InventoryService,  // Inject Inventory Service
+    private router: Router) { }
 
   ngOnInit(): void {
     this.loadShopItems();
+    this.loadPlayerInventory();  // Load player's inventory when the component initializes
   }
 
   loadShopItems(): void {
@@ -30,11 +35,27 @@ export class ShopComponent implements OnInit {
     );
   }
 
+  loadPlayerInventory(): void {
+    this.inventoryService.getInventory(this.characterId).subscribe(
+      (items) => {
+        this.playerItems = items;
+      },
+      (error) => {
+        console.error('Error fetching player inventory', error);
+      }
+    );
+  }
+
   buyItem(item: any): void {
     this.shopService.buyItem(item.id).subscribe(
       (response) => {
         console.log('Item purchased', response);
         this.loadShopItems();  // Reload shop items after purchase
+
+        // Add the item to the player's inventory
+        this.inventoryService.addItemToInventory(this.characterId, item.id).subscribe(() => {
+          this.loadPlayerInventory();  // Reload inventory after adding the item
+        });
       },
       (error) => {
         console.error('Error purchasing item', error);
@@ -47,6 +68,11 @@ export class ShopComponent implements OnInit {
       (response) => {
         console.log('Item sold', response);
         this.loadShopItems();  // Reload shop items after selling
+
+        // Remove the item from the player's inventory
+        this.inventoryService.removeItemFromInventory(this.characterId, item.id).subscribe(() => {
+          this.loadPlayerInventory();  // Reload inventory after removing the item
+        });
       },
       (error) => {
         console.error('Error selling item', error);

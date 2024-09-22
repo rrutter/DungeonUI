@@ -17,7 +17,7 @@
 <div class="player-inventory">
   <h2>Your Items</h2>
   <div *ngFor="let item of playerItems">
-    <p>{{item.name}} - Value: {{item.value}} Gold</p>
+    <p>{{item.equipment.name}} - Value: {{item.equipment.value}} Gold</p>
     <button (click)="sellItem(item)">Sell</button>
   </div>
 </div>

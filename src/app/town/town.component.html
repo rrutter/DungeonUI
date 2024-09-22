@@ -4,7 +4,7 @@
   <h2>Your Guilds:</h2>
   <div *ngIf="characterGuilds.length > 0; else noGuilds">
     <div *ngFor="let guild of characterGuilds">
-      <p><strong>Guild:</strong> {{ guild.guild.name }}</p>
+      <p><strong>Guild:</strong> {{ guild.name }}</p>
       <p><strong>Level:</strong> {{ guild.level }}</p>
       <p><strong>Experience:</strong> {{ guild.experience }}</p>
     </div>
@@ -17,5 +17,4 @@
   <div>
     <button (click)="goToShop()">Go to Shop</button>
   </div>
-
 </div>
