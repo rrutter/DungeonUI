@@ -58,4 +58,8 @@ export class TownComponent implements OnInit {
       }
     );
   }
+
+  goToShop(): void {
+    this.router.navigate(['/shop']);
+  }
 }

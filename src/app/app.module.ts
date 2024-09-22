@@ -12,6 +12,9 @@ import { CharacterCreationComponent } from "./character-creation/character-creat
 import { GameComponent} from "./game/game.component";
 import { TownComponent} from "./town/town.component";
 import { DungeonComponent } from "./dungeon/dungeon.component";
+import { ShopComponent } from "./shop/shop.component";
+
+
 import { DungeonAccessGuard } from "./guards/dungeon-access.guard";
 import {TownGuard} from "./guards/town-access.guard";
 
@@ -23,6 +26,7 @@ const routes: Routes = [
   { path: 'create-character', component: CharacterCreationComponent },
   { path: 'game', component: GameComponent },
   { path: 'town', component: TownComponent, canActivate: [TownGuard]  },
+  { path: 'shop', component: ShopComponent, canActivate: [TownGuard]  },
   { path: 'dungeon', component: DungeonComponent, canActivate: [DungeonAccessGuard] },
 
   { path: '**', redirectTo: 'login' },
@@ -36,7 +40,8 @@ const routes: Routes = [
     CharacterCreationComponent,
     GameComponent,
     TownComponent,
-    DungeonComponent
+    DungeonComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,
