@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
-import {HTTP_INTERCEPTORS, provideHttpClient} from '@angular/common/http';
-import {FormsModule} from "@angular/forms";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { FormsModule } from "@angular/forms";
 
 import { LoginComponent } from './login/login.component';
 import { MainMenuComponent } from "./main-menu/main-menu.component";
@@ -52,7 +52,9 @@ const routes: Routes = [
   ],
   providers: [
     OAuthService,
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]  // Bootstrap the AppComponent
