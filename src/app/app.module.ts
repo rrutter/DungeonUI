@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
-import { provideHttpClient } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, provideHttpClient} from '@angular/common/http';
 import {FormsModule} from "@angular/forms";
 
 import { LoginComponent } from './login/login.component';
@@ -17,6 +17,7 @@ import { ShopComponent } from "./shop/shop.component";
 
 import { DungeonAccessGuard } from "./guards/dungeon-access.guard";
 import {TownGuard} from "./guards/town-access.guard";
+import { AuthInterceptor} from "./guards/authenticate.guard";
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
   providers: [
     OAuthService,
     provideHttpClient(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]  // Bootstrap the AppComponent
 })

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from "../auth/auth.config";
-import {UserService} from "../services/user.service";
-import {NavigationEnd, Router} from "@angular/router";
-import {filter} from "rxjs";
+import { UserService } from "../services/user.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,50 +10,45 @@ import {filter} from "rxjs";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  userData: any = null;  // Store all user data for testing
+  userData: any = null;
 
   constructor(
     private oauthService: OAuthService,
     private userService: UserService,
-    private router: Router)
-    {
-  }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.oauthService.configure(authConfig);
     this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      if (this.oauthService.hasValidIdToken() || this.oauthService.hasValidAccessToken()) {
+      if (this.oauthService.hasValidIdToken()) {
         this.userData = this.oauthService.getIdentityClaims();
-        //console.log('User Data:', this.userData);
 
+        // Retrieve the ID token instead of the access token
+        const idToken = this.oauthService.getIdToken();
+
+        // Store the ID token
+        this.userService.storeToken(idToken);
+
+        // Proceed with account creation or navigation
         this.userService.createAccount(this.userData).subscribe(
           response => {
-           // console.log('Account created successfully:', response);
-            // Debugging token validity after creating account
-            if (this.oauthService.hasValidIdToken() || this.oauthService.hasValidAccessToken()) {
-              //console.log('Token is still valid, navigating to menu');
-            } else {
-             // console.log('Token has become invalid after account creation');
-            }
-            this.router.navigate(['/menu']).then(r => {
-             // console.log('navigating to menu...', r);
-            });
+            this.router.navigate(['/menu']);
           },
           error => {
-           // console.error('Error creating account:', error);
+            console.error('Error creating account:', error);
           }
         );
       }
     });
   }
 
-
   login() {
     this.oauthService.initImplicitFlow();
   }
 
-  // Getter to retrieve the user's name
   get userName(): string | null {
-    return this.userData ? this.userData['name'] : null;  // Use userData to get the name
+    return this.userData ? this.userData['name'] : null;
   }
 }
+

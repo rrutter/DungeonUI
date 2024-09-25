@@ -122,7 +122,7 @@ export class CharacterCreationComponent implements OnInit {
     const userId = this.userService.getUserData().id;  // Assuming you store user data on login
 
     // Call the backend to save the character
-    this.userService.createCharacter(characterData, userId).subscribe(
+    this.userService.createCharacter(characterData).subscribe(
       response => {
         console.log('Character created successfully!!', response);
         this.router.navigate(['/game']);

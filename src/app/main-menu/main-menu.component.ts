@@ -22,7 +22,7 @@ export class MainMenuComponent implements OnInit {
     this.userData = this.userService.getUserData();
     if (this.userData && this.userData.id) {
       // Fetch user's characters
-      this.userService.getUserCharacters(this.userData.id).subscribe(
+      this.userService.getUserCharacters().subscribe(
         (characters: any[]) => {
           this.characters = characters;
           console.log('User characters:', this.characters);
