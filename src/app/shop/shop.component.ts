@@ -50,12 +50,7 @@ export class ShopComponent implements OnInit {
     this.shopService.buyItem(item.id).subscribe(
       (response) => {
         console.log('Item purchased', response);
-        this.loadShopItems();  // Reload shop items after purchase
-
-        // Add the item to the player's inventory
-        this.inventoryService.addItemToInventory(this.characterId, item.id).subscribe(() => {
-          this.loadPlayerInventory();  // Reload inventory after adding the item
-        });
+        this.updateUIAfterTransaction();  // Refresh both the shop and the player's inventory
       },
       (error) => {
         console.error('Error purchasing item', error);
@@ -64,15 +59,10 @@ export class ShopComponent implements OnInit {
   }
 
   sellItem(item: any): void {
-    this.shopService.sellItem(item.id).subscribe(
+    this.shopService.sellItem(item.slotNumber).subscribe(
       (response) => {
         console.log('Item sold', response);
-        this.loadShopItems();  // Reload shop items after selling
-
-        // Remove the item from the player's inventory
-        this.inventoryService.removeItemFromInventory(this.characterId, item.id).subscribe(() => {
-          this.loadPlayerInventory();  // Reload inventory after removing the item
-        });
+        this.updateUIAfterTransaction();  // Refresh both the shop and the player's inventory
       },
       (error) => {
         console.error('Error selling item', error);
@@ -80,7 +70,14 @@ export class ShopComponent implements OnInit {
     );
   }
 
+  updateUIAfterTransaction(): void {
+    console.log('updating ui after transaction...');
+    this.loadShopItems();  // Reload shop items after a successful transaction
+    this.loadPlayerInventory();  // Reload inventory after a successful transaction
+  }
+
   goBackToTown(): void {
     this.router.navigate(['/town']);
   }
 }
+

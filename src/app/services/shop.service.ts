@@ -15,10 +15,11 @@ export class ShopService {
   }
 
   buyItem(itemId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/buy`, { itemId });
+    return this.http.post(`${this.apiUrl}/buy`, { itemId }, { responseType: 'text' });
   }
 
+
   sellItem(itemId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/sell`, { itemId });
+    return this.http.post(`${this.apiUrl}/sell`, { slotNumber: itemId }, { responseType: 'text' });
   }
 }
