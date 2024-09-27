@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import {CharacterService} from "../services/character.service";
 
 @Component({
   selector: 'app-game',
@@ -9,11 +10,13 @@ import { Router } from '@angular/router';
 })
 export class GameComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService,
+              private characterService: CharacterService,
+              private router: Router) {}
 
   ngOnInit(): void {
     // Assuming the selected character is stored in the UserService
-    const character = this.userService.getSelectedCharacter();
+    const character = this.characterService.getSelectedCharacter();
 
     if (!character) {
       // If no character is selected, navigate back to the main menu

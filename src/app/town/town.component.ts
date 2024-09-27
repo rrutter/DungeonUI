@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import {CharacterService} from "../services/character.service";
 
 @Component({
   selector: 'app-town',
@@ -12,13 +13,16 @@ export class TownComponent implements OnInit {
   characterGuilds: any[] = [];  // Store the character's guilds
   characterWorn: any;  // Store the character's worn equipment
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private characterService: CharacterService,
+    private router: Router) {}
 
   ngOnInit(): void {
-    this.selectedCharacter = this.userService.getSelectedCharacter();
+    this.selectedCharacter = this.characterService.getSelectedCharacter();
 
     // Call backend to ensure character is in town (locationId = 0)
-    this.userService.getCharacterLocation(this.selectedCharacter.id).subscribe(
+    this.characterService.getCharacterLocation(this.selectedCharacter.id).subscribe(
       (locationData) => {
         if (locationData.locationId !== 0) {
           this.router.navigate(['/game']);
@@ -36,7 +40,7 @@ export class TownComponent implements OnInit {
   }
 
   loadCharacterGuilds(): void {
-    this.userService.getCharacterGuilds(this.selectedCharacter.id).subscribe(
+    this.characterService.getCharacterGuilds(this.selectedCharacter.id).subscribe(
       (guilds) => {
         this.characterGuilds = guilds;  // Store the guilds for display
       },
@@ -50,7 +54,7 @@ export class TownComponent implements OnInit {
 
   // Load the character's worn equipment
   loadCharacterWorn(): void {
-    this.userService.getAllCharacterWorn(this.selectedCharacter.id).subscribe(
+    this.characterService.getAllCharacterWorn(this.selectedCharacter.id).subscribe(
       (wornData) => {
         this.characterWorn = wornData;  // Store the character's worn equipment
       },

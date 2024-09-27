@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { Race, Gender, Alignment, BaseStats } from './character-interfaces'
+import {CharacterService} from "../services/character.service";
 
 @Component({
   selector: 'app-character-creation',
@@ -30,11 +31,13 @@ export class CharacterCreationComponent implements OnInit {
   maxPoints: number = 70;
   remainingPoints: number = 10;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private characterService: CharacterService,
+    private router: Router) {}
 
   ngOnInit() {
     // Fetch races from backend
-    this.userService.getCharacterData().subscribe((data: Race[]) => {
+    this.characterService.getCharacterData().subscribe((data: Race[]) => {
       this.races = data;
       console.log('existing races:', this.races);
 
@@ -46,14 +49,14 @@ export class CharacterCreationComponent implements OnInit {
     });
 
     // Fetch genders from backend
-    this.userService.getGenders().subscribe((data: Gender[]) => {
+    this.characterService.getGenders().subscribe((data: Gender[]) => {
       this.genders = data;
       this.selectedGender = this.genders[0]?.name || 'Male'; // Default selection
       console.log('existing genders:', this.genders);
     });
 
     // Fetch alignments from backend
-    this.userService.getAlignments().subscribe((data: Alignment[]) => {
+    this.characterService.getAlignments().subscribe((data: Alignment[]) => {
       this.alignments = data;
       this.selectedAlignment = this.alignments[0]?.name || 'Neutral'; // Default selection
       console.log('existing alignments:', this.alignments);
@@ -119,10 +122,8 @@ export class CharacterCreationComponent implements OnInit {
       guild: this.defaultGuild
     };
 
-    const userId = this.userService.getUserData().id;  // Assuming you store user data on login
-
     // Call the backend to save the character
-    this.userService.createCharacter(characterData).subscribe(
+    this.characterService.createCharacter(characterData).subscribe(
       response => {
         console.log('Character created successfully!!', response);
         this.router.navigate(['/game']);

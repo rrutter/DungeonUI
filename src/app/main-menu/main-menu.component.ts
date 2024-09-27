@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
+import {CharacterService} from "../services/character.service";
 
 @Component({
   selector: 'app-main-menu',
@@ -15,6 +16,7 @@ export class MainMenuComponent implements OnInit {
   constructor(
     private oauthService: OAuthService,
     private userService: UserService,
+    private characterSericeService: CharacterService,
     private router: Router)
   {}
 
@@ -22,7 +24,7 @@ export class MainMenuComponent implements OnInit {
     this.userData = this.userService.getUserData();
     if (this.userData && this.userData.id) {
       // Fetch user's characters
-      this.userService.getUserCharacters().subscribe(
+      this.characterSericeService.getUserCharacters().subscribe(
         (characters: any[]) => {
           this.characters = characters;
           console.log('User characters:', this.characters);
@@ -46,7 +48,7 @@ export class MainMenuComponent implements OnInit {
   }
 
   selectCharacter(character: any) {
-    this.userService.setSelectedCharacter(character);
+    this.characterSericeService.setSelectedCharacter(character);
     this.router.navigate(['/game']);
   }
 

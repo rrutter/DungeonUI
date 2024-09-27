@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import {CharacterService} from "../services/character.service";
 
 @Component({
   selector: 'app-dungeon',
@@ -12,10 +12,12 @@ export class DungeonComponent implements OnInit {
   xPosition!: number;
   yPosition!: number;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private characterService: CharacterService
+  ) {}
 
   ngOnInit(): void {
-    this.selectedCharacter = this.userService.getSelectedCharacter();
+    this.selectedCharacter = this.characterService.getSelectedCharacter();
     this.loadDungeonRoom(this.selectedCharacter.level, this.selectedCharacter.xPosition, this.selectedCharacter.yPosition);
   }
 
