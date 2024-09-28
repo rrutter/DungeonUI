@@ -10,28 +10,28 @@ export class BankService {
 
   constructor(private http: HttpClient) {}
 
-  // Get the bank information for a specific character
-  getBank(characterId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}?characterId=${characterId}`);
+  // Get the bank information for the authenticated user's active character
+  getBank(): Observable<any> {
+    return this.http.get(this.apiUrl);
   }
 
-  // Deposit gold into the bank for a specific character
-  depositGold(characterId: number, amount: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/deposit?characterId=${characterId}`, amount);
+  // Deposit gold into the bank for the active character
+  depositGold(amount: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/deposit`, amount);
   }
 
-  // Withdraw gold from the bank for a specific character
-  withdrawGold(characterId: number, amount: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/withdraw?characterId=${characterId}`, amount);
+  // Withdraw gold from the bank for the active character
+  withdrawGold(amount: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/withdraw`, amount);
   }
 
   // Move an item from the character's inventory to the bank
-  moveToBank(characterId: number, slotId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/move-to-bank?characterId=${characterId}`, { slotId });
+  moveToBank(slotId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/move-to-bank`, { slotId });
   }
 
   // Move an item from the bank to the character's inventory
-  moveToInventory(characterId: number, bankSlotId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/move-to-inventory?characterId=${characterId}`, { bankSlotId });
+  moveToInventory(bankSlotId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/move-to-inventory`, { bankSlotId });
   }
 }

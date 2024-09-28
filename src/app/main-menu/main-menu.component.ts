@@ -16,7 +16,7 @@ export class MainMenuComponent implements OnInit {
   constructor(
     private oauthService: OAuthService,
     private userService: UserService,
-    private characterSericeService: CharacterService,
+    private characterService: CharacterService,
     private router: Router)
   {}
 
@@ -24,7 +24,7 @@ export class MainMenuComponent implements OnInit {
     this.userData = this.userService.getUserData();
     if (this.userData && this.userData.id) {
       // Fetch user's characters
-      this.characterSericeService.getUserCharacters().subscribe(
+      this.characterService.getUserCharacters().subscribe(
         (characters: any[]) => {
           this.characters = characters;
           console.log('User characters:', this.characters);
@@ -48,7 +48,7 @@ export class MainMenuComponent implements OnInit {
   }
 
   selectCharacter(character: any) {
-    this.characterSericeService.setSelectedCharacter(character);
+    this.characterService.setSelectedCharacter(character);
     this.router.navigate(['/game']);
   }
 

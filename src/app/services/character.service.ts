@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserService } from './user.service';  // Import UserService for authentication
 
@@ -22,9 +22,19 @@ export class CharacterService {
     return this.http.get<any[]>(`${this.apiUrl}/characters/user`, { headers: this.userService.getAuthHeaders() });
   }
 
-  // Manage selected character
   setSelectedCharacter(character: any): void {
     this.selectedCharacter = character;
+
+    // Call the backend to set the active character for the authenticated user
+    this.setActiveCharacter(character.id).subscribe(() => {
+      console.log(`Active character set: ${character.name}`);
+    }, error => {
+      console.error('Error setting active character', error);
+    });
+  }
+
+  private setActiveCharacter(characterId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/characters/set-active`, characterId, { headers: this.userService.getAuthHeaders() });
   }
 
   getSelectedCharacter(): any {
