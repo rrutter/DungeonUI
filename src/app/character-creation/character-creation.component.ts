@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { Race, Gender, Alignment, BaseStats } from './character-interfaces'
 import {CharacterService} from "../services/character.service";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-character-creation',
@@ -37,30 +37,36 @@ export class CharacterCreationComponent implements OnInit {
 
   ngOnInit() {
     // Fetch races from backend
-    this.characterService.getCharacterData().subscribe((data: Race[]) => {
-      this.races = data;
-      console.log('existing races:', this.races);
+    this.characterService.getCharacterData().pipe(
+      map((data: Race[]) => {
+        this.races = data;
+        console.log('existing races:', this.races);
 
-      // Set default selected race and update stats when races are loaded
-      if (this.races.length > 0) {
-        this.selectedRace = this.races[0].name;
-        this.updateStatsBasedOnRace(this.races[0]);
-      }
-    });
+        // Set default selected race and update stats when races are loaded
+        if (this.races.length > 0) {
+          this.selectedRace = this.races[0].name;
+          this.updateStatsBasedOnRace(this.races[0]);
+        }
+      })
+    ).subscribe();
 
     // Fetch genders from backend
-    this.characterService.getGenders().subscribe((data: Gender[]) => {
-      this.genders = data;
-      this.selectedGender = this.genders[0]?.name || 'Male'; // Default selection
-      console.log('existing genders:', this.genders);
-    });
+    this.characterService.getGenders().pipe(
+      map((data: Gender[]) => {
+        this.genders = data;
+        this.selectedGender = this.genders[0]?.name || 'Male'; // Default selection
+        console.log('existing genders:', this.genders);
+      })
+    ).subscribe();
 
     // Fetch alignments from backend
-    this.characterService.getAlignments().subscribe((data: Alignment[]) => {
-      this.alignments = data;
-      this.selectedAlignment = this.alignments[0]?.name || 'Neutral'; // Default selection
-      console.log('existing alignments:', this.alignments);
-    });
+    this.characterService.getAlignments().pipe(
+      map((data: Alignment[]) => {
+        this.alignments = data;
+        this.selectedAlignment = this.alignments[0]?.name || 'Neutral'; // Default selection
+        console.log('existing alignments:', this.alignments);
+      })
+    ).subscribe();
   }
 
   // Handle race change and reset stats
@@ -123,16 +129,18 @@ export class CharacterCreationComponent implements OnInit {
     };
 
     // Call the backend to save the character
-    this.characterService.createCharacter(characterData).subscribe(
-      response => {
+    this.characterService.createCharacter(characterData).pipe(
+      map(response => {
         console.log('Character created successfully!!', response);
         this.router.navigate(['/game']);
-      },
+      })
+    ).subscribe(
       error => {
         console.error('Error creating character', error);
       }
     );
   }
+
 
 
   cancel(): void {
