@@ -67,4 +67,9 @@ export class TownComponent implements OnInit {
   goToShop(): void {
     this.router.navigate(['/shop']);
   }
+
+  goToGuilds(): void {
+    this.router.navigate(['/guilds']);  // Assuming you have a route to the guild component
+  }
+
 }

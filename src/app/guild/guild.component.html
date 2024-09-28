@@ -1,0 +1,19 @@
+<div>
+  <h1>Available Guilds</h1>
+
+  <div *ngFor="let guild of guilds">
+    <h3>{{ guild.name }}</h3>
+    <p>Strength Requirement: {{ guild.strengthRequirement }}</p>
+    <p>Dexterity Requirement: {{ guild.dexterityRequirement }}</p>
+    <p>Constitution Requirement: {{ guild.constitutionRequirement }}</p>
+    <p>Charisma Requirement: {{ guild.charismaRequirement }}</p>
+    <p>Intelligence Requirement: {{ guild.intelligenceRequirement }}</p>
+    <p>Wisdom Requirement: {{ guild.wisdomRequirement }}</p>
+
+    <button (click)="joinGuild(guild)" [disabled]="!meetsRequirements(guild)">
+      Join Guild
+    </button>
+  </div>
+
+  <button (click)="goBackToTown()">Back to Town</button>
+</div>

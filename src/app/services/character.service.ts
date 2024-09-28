@@ -58,4 +58,8 @@ export class CharacterService {
   getAlignments(): Observable<any> {
     return this.http.get(`${this.apiUrl}/character-data/alignments`);
   }
+
+  joinGuild(characterId: number, guildId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/characters/${characterId}/join-guild`, { guildId });
+  }
 }

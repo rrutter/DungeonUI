@@ -13,6 +13,7 @@ import { GameComponent} from "./game/game.component";
 import { TownComponent} from "./town/town.component";
 import { DungeonComponent } from "./dungeon/dungeon.component";
 import { ShopComponent } from "./shop/shop.component";
+import { GuildComponent} from "./guild/guild.component";
 
 
 import { DungeonAccessGuard } from "./guards/dungeon-access.guard";
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'game', component: GameComponent },
   { path: 'town', component: TownComponent, canActivate: [TownGuard]  },
   { path: 'shop', component: ShopComponent, canActivate: [TownGuard]  },
+  { path: 'guilds', component: GuildComponent, canActivate: [TownGuard]  },
   { path: 'dungeon', component: DungeonComponent, canActivate: [DungeonAccessGuard] },
 
   { path: '**', redirectTo: 'login' },
@@ -42,7 +44,8 @@ const routes: Routes = [
     GameComponent,
     TownComponent,
     DungeonComponent,
-    ShopComponent
+    ShopComponent,
+    GuildComponent
   ],
   imports: [
     BrowserModule,
