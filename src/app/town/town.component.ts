@@ -72,4 +72,9 @@ export class TownComponent implements OnInit {
     this.router.navigate(['/guilds']);  // Assuming you have a route to the guild component
   }
 
+  goToBank(): void {
+    this.router.navigate(['/bank']);
+  }
+
+
 }

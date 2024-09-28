@@ -1,0 +1,13 @@
+<div>
+  <h1>Bank</h1>
+
+  <h2>Gold: {{ bankData?.bankGold }}</h2>
+  <button (click)="depositGold(100)">Deposit 100 Gold</button>
+  <button (click)="withdrawGold(100)">Withdraw 100 Gold</button>
+
+  <h2>Bank Inventory</h2>
+  <div *ngFor="let slot of bankData?.bankSlots">
+    <p>{{ slot.equipment?.name || 'Empty Slot' }} (Slot {{ slot.slotNumber }})</p>
+    <button *ngIf="slot.equipment" (click)="moveToInventory(slot.id)">Move to Inventory</button>
+  </div>
+</div>
