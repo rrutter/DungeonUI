@@ -15,14 +15,12 @@ export class BankService {
     return this.http.get(this.apiUrl);
   }
 
-  // Deposit gold into the bank for the active character
   depositGold(amount: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/deposit`, amount);
+    return this.http.post(`${this.apiUrl}/deposit`, { amount });
   }
 
-  // Withdraw gold from the bank for the active character
   withdrawGold(amount: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/withdraw`, amount);
+    return this.http.post(`${this.apiUrl}/withdraw`, { amount });
   }
 
   // Move an item from the character's inventory to the bank

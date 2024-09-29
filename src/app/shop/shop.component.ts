@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShopService } from '../services/shop.service';
 import { InventoryService } from '../services/inventory.service'; // Import the new Inventory Service
 import { Router } from "@angular/router";
+import {CharacterService} from "../services/character.service";
 
 @Component({
   selector: 'app-shop',
@@ -12,14 +13,16 @@ export class ShopComponent implements OnInit {
 
   shopItems: any[] = [];
   playerItems: any[] = [];  // Holds the player's inventory
-  characterId = 1;  // Assuming the character ID is known (or retrieve it dynamically)
+  character: any;
 
   constructor(
     private shopService: ShopService,
-    private inventoryService: InventoryService,  // Inject Inventory Service
+    private inventoryService: InventoryService,
+    private characterService: CharacterService,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.character = this.characterService.getSelectedCharacter();
     this.loadShopItems();
     this.loadPlayerInventory();  // Load player's inventory when the component initializes
   }
@@ -36,7 +39,7 @@ export class ShopComponent implements OnInit {
   }
 
   loadPlayerInventory(): void {
-    this.inventoryService.getInventory(this.characterId).subscribe(
+    this.inventoryService.getInventory(this.character.id).subscribe(
       (items) => {
         this.playerItems = items;
       },

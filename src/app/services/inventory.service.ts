@@ -13,16 +13,16 @@ export class InventoryService {
 
   // Get player's inventory
   getInventory(characterId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${characterId}/inventory`);
+    return this.http.get<any[]>(`${this.apiUrl}/inventory`);
   }
 
   // Add item to inventory (after buying from shop)
   addItemToInventory(characterId: number, itemId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${characterId}/add`, { itemId });
+    return this.http.post(`${this.apiUrl}/add`, { itemId });
   }
 
   // Remove item from inventory (after selling to shop)
   removeItemFromInventory(characterId: number, itemId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${characterId}/remove`, { itemId });
+    return this.http.post(`${this.apiUrl}/remove`, { itemId });
   }
 }

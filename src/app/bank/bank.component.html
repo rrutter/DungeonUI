@@ -1,13 +1,30 @@
 <div>
   <h1>Bank</h1>
 
+  <!-- Gold Deposit/Withdraw -->
   <h2>Gold: {{ bankData?.bankGold }}</h2>
   <button (click)="depositGold(100)">Deposit 100 Gold</button>
   <button (click)="withdrawGold(100)">Withdraw 100 Gold</button>
 
+  <!-- Bank Inventory -->
   <h2>Bank Inventory</h2>
   <div *ngFor="let slot of bankData?.bankSlots">
     <p>{{ slot.equipment?.name || 'Empty Slot' }} (Slot {{ slot.slotNumber }})</p>
     <button *ngIf="slot.equipment" (click)="moveToInventory(slot.id)">Move to Inventory</button>
+  </div>
+
+  <!-- Player Inventory -->
+  <h2>Your Items</h2>
+  <div *ngFor="let item of playerItems">
+    <p>
+      {{ item.equipment ? item.equipment.name + ' - Value: ' + item.equipment.value + ' Gold' : '---' }}
+      (Slot {{item.slotNumber}})
+    </p>
+    <button *ngIf="item.equipment" (click)="moveToBank(item)">Store in Bank</button>
+  </div>
+
+  <!-- Go Back to Town Button -->
+  <div class="go-back">
+    <button (click)="goToTown()">Go Back to Town</button>
   </div>
 </div>
