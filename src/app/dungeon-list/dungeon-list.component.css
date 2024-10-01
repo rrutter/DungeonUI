@@ -1,0 +1,27 @@
+.dungeon-list {
+  text-align: center;
+}
+
+.dungeon-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.dungeon-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 300px;
+}
+
+.dungeon-list img {
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.dungeon-list button {
+  margin-top: 10px;
+}

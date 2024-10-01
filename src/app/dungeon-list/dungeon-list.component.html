@@ -1,0 +1,17 @@
+<div class="dungeon-list">
+  <h2>Select a Dungeon</h2>
+
+  <ul>
+    <li *ngFor="let dungeon of dungeons">
+      <img [src]="dungeon.imageUrl" alt="{{ dungeon.name }} image" width="100">
+      <h3>{{ dungeon.name }} ({{ dungeon.theme }} Theme)</h3>
+      <p>{{ dungeon.description }}</p>
+
+      <button (click)="enterDungeon(dungeon)" [disabled]="!dungeon.unlocked">
+        {{ dungeon.unlocked ? 'Enter Dungeon' : 'Locked' }}
+      </button>
+
+      <p *ngIf="!dungeon.unlocked">Hint: {{ dungeon.unlockHint }}</p>
+    </li>
+  </ul>
+</div>

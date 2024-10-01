@@ -77,5 +77,13 @@ export class TownComponent implements OnInit {
     this.router.navigate(['/character']);
   }
 
+  goToMenu(): void {
+    this.router.navigate(['/menu']);
+  }
+
+  goToDungeonList(): void {
+    this.router.navigate(['/dungeon-list']);
+  }
+
 
 }
