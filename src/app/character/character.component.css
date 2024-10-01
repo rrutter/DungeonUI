@@ -1,0 +1,90 @@
+.character-silhouette {
+  position: relative;
+  width: 400px;  /* Increased width */
+  height: 700px; /* Increased height */
+  background: url('/assets/silhouette.png') no-repeat center center;
+  background-color: black;
+  background-size: contain;
+  margin: 0 auto; /* Centers the silhouette horizontally */
+}
+
+.slot {
+  position: absolute;
+  cursor: pointer;
+  color: white;
+  font-size: 14px; /* Adjust font size */
+  padding: 2px 5px; /* Add some padding for better readability */
+  text-align: center; /* Center the text */
+}
+
+.slot.head {
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slot.neck {
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slot.chest {
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slot.wrists {
+  top: 35%;
+  left: 20%;
+}
+
+.slot.hands {
+  top: 35%;
+  right: 20%;
+}
+
+.slot.belt {
+  top: 43%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slot.legs {
+  top: 55%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slot.feet {
+  top: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slot.ring1 {
+  top: 20%;
+  right: 15%;
+}
+
+.slot.ring2 {
+  top: 30%;
+  right: 15%;
+}
+
+.slot.weapon {
+  top: 60%;
+  left: 10%;
+}
+
+.slot.offhand {
+  top: 60%;
+  right: 10%;
+}
+
+.slot.uniqueSlot {
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+}

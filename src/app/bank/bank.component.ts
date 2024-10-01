@@ -115,7 +115,6 @@ export class BankComponent implements OnInit {
 
   // Refresh UI after transaction and manually trigger change detection
   updateUIAfterTransaction(): void {
-    console.log('ui update called');
     this.loadBankData();  // Reload bank data
     this.loadPlayerInventory();  // Reload inventory
     this.cdRef.detectChanges();  // Manually trigger change detection

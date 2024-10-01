@@ -42,7 +42,7 @@ export class TownComponent implements OnInit {
   loadCharacterGuilds(): void {
     this.characterService.getCharacterGuilds(this.selectedCharacter.id).subscribe(
       (guilds) => {
-        this.characterGuilds = guilds;  // Store the guilds for display
+        this.characterGuilds = guilds;
       },
       (error) => {
         console.error('Error fetching guilds', error);
@@ -50,13 +50,10 @@ export class TownComponent implements OnInit {
     );
   }
 
-
-
-  // Load the character's worn equipment
   loadCharacterWorn(): void {
-    this.characterService.getAllCharacterWorn(this.selectedCharacter.id).subscribe(
+    this.characterService.getAllCharacterWorn().subscribe(
       (wornData) => {
-        this.characterWorn = wornData;  // Store the character's worn equipment
+        this.characterWorn = wornData;
       },
       (error) => {
         console.error('Error fetching worn equipment', error);
@@ -69,11 +66,15 @@ export class TownComponent implements OnInit {
   }
 
   goToGuilds(): void {
-    this.router.navigate(['/guilds']);  // Assuming you have a route to the guild component
+    this.router.navigate(['/guilds']);
   }
 
   goToBank(): void {
     this.router.navigate(['/bank']);
+  }
+
+  goToCharacter(): void {
+    this.router.navigate(['/character']);
   }
 
 

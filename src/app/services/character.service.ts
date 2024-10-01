@@ -41,22 +41,27 @@ export class CharacterService {
     return this.selectedCharacter;
   }
 
-  // Fetch character location
   getCharacterLocation(characterId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/characters/${characterId}/location`, { headers: this.userService.getAuthHeaders() });
   }
 
-  // Fetch character guilds
   getCharacterGuilds(characterId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/characters/${characterId}/guilds`, { headers: this.userService.getAuthHeaders() });
   }
 
-  // Fetch character worn items
-  getAllCharacterWorn(characterId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/characters/${characterId}/worn`, { headers: this.userService.getAuthHeaders() });
+  getAllCharacterWorn(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/characters/worn`, { headers: this.userService.getAuthHeaders() });
   }
 
-  // Fetch character creation data (races, genders, alignments)
+  equipItem(slot: string): Observable<any> {
+    console.log('equip item service called...');
+    return this.http.post(`${this.apiUrl}/characters/worn/equip`, { slot }, { headers: this.userService.getAuthHeaders() });
+  }
+
+  unequipItem(slot: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/characters/worn/unequip`, { slot }, { headers: this.userService.getAuthHeaders() });
+  }
+
   getCharacterData(): Observable<any> {
     return this.http.get(`${this.apiUrl}/character-data/races`);
   }

@@ -11,29 +11,22 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('AuthInterceptor - intercept called for URL:', request.url);
 
     const token = this.userService.getToken();
-    console.log('AuthInterceptor - token:', token);
 
     // Define your API base URL
-    const apiUrl = 'http://localhost:8080'; // Adjust if needed
+    const apiUrl = 'http://localhost:8080';
 
-    // Only add the Authorization header if the request is to your API
     if (request.url.startsWith(apiUrl)) {
       if (token) {
-        // Clone the request and add the new header
         const authReq = request.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`
           }
         });
-        console.log('AuthInterceptor - request modified with token');
         return next.handle(authReq);
       }
     }
-
-    console.log('AuthInterceptor - no token added to request');
     return next.handle(request);
   }
 }
