@@ -1,48 +1,65 @@
+.character-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.character-layout {
+  display: flex;
+  justify-content: center; /* Center the items horizontally */
+  align-items: flex-start; /* Align items to the top */
+  width: 100%; /* Ensure it stretches to the full width */
+  max-width: 1200px; /* Restrict max-width for better presentation */
+  gap: 40px; /* Add spacing between silhouette and inventory */
+  margin-top: 20px; /* Space between title and content */
+}
+
 .character-silhouette {
   position: relative;
-  width: 400px;  /* Increased width */
-  height: 700px; /* Increased height */
+  width: 50%;
+  height: 900px;
   background: url('/assets/silhouette.png') no-repeat center center;
   background-color: black;
   background-size: contain;
-  margin: 0 auto; /* Centers the silhouette horizontally */
+}
+
+.inventory {
+  flex: 1;
+  margin-left: 20px;
 }
 
 .slot {
   position: absolute;
   cursor: pointer;
   color: white;
-  font-size: 14px; /* Adjust font size */
-  padding: 2px 5px; /* Add some padding for better readability */
-  text-align: center; /* Center the text */
+  font-size: 14px;
+  text-align: center;
+  width: 100px;
 }
 
 .slot.head {
-  top: 5%;
+  top: 8%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .slot.neck {
-  top: 13%;
+  top: 16%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .slot.chest {
-  top: 25%;
+  top: 28%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .slot.wrists {
   top: 35%;
-  left: 20%;
-}
-
-.slot.hands {
-  top: 35%;
-  right: 20%;
+  left: 30%;
 }
 
 .slot.belt {
@@ -63,28 +80,66 @@
   transform: translateX(-50%);
 }
 
+.slot.hands {
+  top: 35%;
+  left: 70%;
+}
+
 .slot.ring1 {
-  top: 20%;
-  right: 15%;
+  top: 18%;
+  left: 20%;
 }
 
 .slot.ring2 {
-  top: 30%;
-  right: 15%;
+  top: 25%;
+  left: 20%;
 }
 
 .slot.weapon {
   top: 60%;
-  left: 10%;
+  left: 20%;
 }
 
 .slot.offhand {
   top: 60%;
-  right: 10%;
+  left: 70%;
 }
 
 .slot.uniqueSlot {
   top: 80%;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.inventory p {
+  margin-bottom: 10px;
+}
+
+.inventory button {
+  margin-bottom: 15px;
+}
+
+
+.inventory-item {
+  display: flex;
+  justify-content: space-between; /* Align the item name and button to the edges */
+  align-items: center; /* Vertically center the text and button */
+  margin-bottom: 10px; /* Add spacing between inventory items */
+}
+
+.item-name {
+  flex-grow: 1; /* Allow item name to grow and fill space */
+  margin-right: 10px; /* Add some space between item name and button */
+}
+
+.equip-btn {
+  padding: 5px 10px;
+  background-color: #4CAF50; /* Button color */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.equip-btn:hover {
+  background-color: #45a049; /* Button hover effect */
 }

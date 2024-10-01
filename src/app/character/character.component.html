@@ -1,61 +1,66 @@
+
+<!-- Go Back to Town Button -->
+<div class="go-back">
+  <button (click)="goToTown()">Go Back to Town</button>
+</div>
+
 <div class="character-screen">
   <h1>Your Character</h1>
 
-  <div class="character-silhouette">
-    <!-- Character Slots -->
-    <div class="slot head" (click)="handleSilhouetteClick('head')">
-      <p>Head: {{ characterWorn?.head?.name || 'Empty' }}</p>
+  <div class="character-layout">
+    <!-- Character Silhouette -->
+    <div class="character-silhouette">
+      <!-- Character Slots -->
+      <div class="slot head" (click)="handleSilhouetteClick('head')">
+        <p>Head: {{ characterWorn?.head?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot neck" (click)="handleSilhouetteClick('neck')">
+        <p>Neck: {{ characterWorn?.neck?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot chest" (click)="handleSilhouetteClick('chest')">
+        <p>Chest: {{ characterWorn?.chest?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot wrists" (click)="handleSilhouetteClick('wrists')">
+        <p>Wrists: {{ characterWorn?.wrists?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot belt" (click)="handleSilhouetteClick('belt')">
+        <p>Belt: {{ characterWorn?.belt?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot legs" (click)="handleSilhouetteClick('legs')">
+        <p>Legs: {{ characterWorn?.legs?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot feet" (click)="handleSilhouetteClick('feet')">
+        <p>Feet: {{ characterWorn?.feet?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot hands" (click)="handleSilhouetteClick('hands')">
+        <p>Hands: {{ characterWorn?.hands?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot ring1" (click)="handleSilhouetteClick('ring1')">
+        <p>Ring 1: {{ characterWorn?.ring1?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot ring2" (click)="handleSilhouetteClick('ring2')">
+        <p>Ring 2: {{ characterWorn?.ring2?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot weapon" (click)="handleSilhouetteClick('weapon')">
+        <p>Weapon: {{ characterWorn?.weapon?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot offhand" (click)="handleSilhouetteClick('offhand')">
+        <p>Offhand: {{ characterWorn?.offhand?.name || 'Empty' }}</p>
+      </div>
+      <div class="slot uniqueSlot" (click)="handleSilhouetteClick('uniqueSlot')">
+        <p>Unique: {{ characterWorn?.uniqueSlot?.name || 'Empty' }}</p>
+      </div>
     </div>
-    <div class="slot neck" (click)="handleSilhouetteClick('neck')">
-      <p>Neck: {{ characterWorn?.neck?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot chest" (click)="handleSilhouetteClick('chest')">
-      <p>Chest: {{ characterWorn?.chest?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot wrists" (click)="handleSilhouetteClick('wrists')">
-      <p>Wrists: {{ characterWorn?.wrists?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot belt" (click)="handleSilhouetteClick('belt')">
-      <p>Belt: {{ characterWorn?.belt?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot legs" (click)="handleSilhouetteClick('legs')">
-      <p>Legs: {{ characterWorn?.legs?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot feet" (click)="handleSilhouetteClick('feet')">
-      <p>Feet: {{ characterWorn?.feet?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot hands" (click)="handleSilhouetteClick('hands')">
-      <p>Hands: {{ characterWorn?.hands?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot ring1" (click)="handleSilhouetteClick('ring1')">
-      <p>Ring 1: {{ characterWorn?.ring1?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot ring2" (click)="handleSilhouetteClick('ring2')">
-      <p>Ring 2: {{ characterWorn?.ring2?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot weapon" (click)="handleSilhouetteClick('weapon')">
-      <p>Weapon: {{ characterWorn?.weapon?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot offhand" (click)="handleSilhouetteClick('offhand')">
-      <p>Offhand: {{ characterWorn?.offhand?.name || 'Empty' }}</p>
-    </div>
-    <div class="slot uniqueSlot" (click)="handleSilhouetteClick('uniqueSlot')">
-      <p>Unique: {{ characterWorn?.uniqueSlot?.name || 'Empty' }}</p>
-    </div>
-  </div>
 
-  <!-- Player Inventory -->
-  <h2>Your Items</h2>
-  <div *ngFor="let item of playerItems">
-    <p>
+    <!-- Player Inventory -->
+    <div class="inventory">
+      <h2>Your Items</h2>
+      <div *ngFor="let item of playerItems" class="inventory-item">
+    <span class="item-name">
       {{ item.equipment ? item.equipment.name + ' - Value: ' + item.equipment.value + ' Gold' : '---' }}
-      (Slot {{item.slotNumber}})
-    </p>
-    <button *ngIf="item.equipment" (click)="equipItem(item.slotNumber)">Equip</button>
-  </div>
-
-  <!-- Go Back to Town Button -->
-  <div class="go-back">
-    <button (click)="goToTown()">Go Back to Town</button>
+    </span>
+        <button *ngIf="item.equipment" (click)="equipItem(item.slotNumber)" class="equip-btn">Equip</button>
+      </div>
+    </div>
   </div>
 </div>
