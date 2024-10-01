@@ -14,6 +14,9 @@ export class CharacterComponent implements OnInit {
   playerItems: any[] = [];
   selectedCharacter: any;
 
+  isMobile: boolean = false;
+  showSilhouette: boolean = true;
+
   constructor(
     private characterService: CharacterService,
     private inventoryService: InventoryService,
@@ -24,7 +27,9 @@ export class CharacterComponent implements OnInit {
   ngOnInit(): void {
     this.selectedCharacter = this.characterService.getSelectedCharacter();
     this.loadCharacterWorn();
-    this.loadPlayerInventory();  // Load player's inventory when component initializes
+    this.loadPlayerInventory();
+    this.checkIfMobile();
+    window.addEventListener('resize', () => this.checkIfMobile());
   }
 
   // Load character's worn equipment
@@ -113,5 +118,13 @@ export class CharacterComponent implements OnInit {
   // Navigate back to the town screen
   goToTown(): void {
     this.router.navigate(['/town']);
+  }
+
+  checkIfMobile() {
+    this.isMobile = window.innerWidth <= 768; // Adjust breakpoint as needed
+  }
+
+  toggleView(view: string) {
+    this.showSilhouette = view === 'silhouette';
   }
 }
